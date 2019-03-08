@@ -1,4 +1,25 @@
-// TODO file header
+/////////////////// ALL ASSIGNMENTS INCLUDE THIS SECTION /////////////////////
+//
+// Title:           BP1 MasterMind
+// Files:          MasterMing.java, TestMasterMind.java, Config.java
+// Course:          CS 200 Spring 2019
+//
+// Author:          Sarah Quinn
+// Email:           squinn4@wisc.edu
+// Lecturer's Name: Jim Williams
+//
+///////////////////////////// CREDIT OUTSIDE HELP /////////////////////////////
+//
+// Students who get help from sources other than their partner must fully
+// acknowledge and credit those sources of help here.  Instructors and TAs do
+// not need to be credited here, but tutors, friends, relatives, room mates
+// strangers, etc do.  If you received no outside help from either type of
+// source, then please explicitly indicate NONE.
+//
+// Persons:         none
+// Online Sources:  none
+//
+/////////////////////////////// 80 COLUMNS WIDE ///////////////////////////////
 
 import java.util.Arrays;
 import java.util.Random;
@@ -35,7 +56,21 @@ public class MasterMind {
      * @return Returns the value read from the user.
      */
     public static int promptInt(Scanner input, String prompt, int min, int max) {
-        return 0; //TODO replace
+        System.out.print(prompt);
+        int userNum;
+        if (!input.hasNextInt()) {
+            input.next();
+            System.out.println("Expected value between 0 and 10.");
+            System.out.print(prompt);
+        }
+        userNum = input.nextInt();
+        if (userNum < min || userNum > max) {
+            System.out.println("Expected value between 0 and 10.");
+            System.out.print(prompt);
+            userNum = input.nextInt();
+        }
+        input.nextLine();
+        return userNum; //TODO replace
     }
 
     /**
@@ -48,7 +83,19 @@ public class MasterMind {
      *     character or -1 if the character is not found in the array.
      */
     public static int indexOf(char[] arr, char ch) {
-        return 0; //TODO replace
+        int i;
+        int matchLocation;
+        if (!arr = null && arr.length() > 0) {
+            for (i = 0; i <= arr.length(); i++) {
+                if (arr[i] == ch) {
+                    matchLocation = i;
+                    break;
+                } else {
+                    continue;
+                }
+            }
+        }
+        return matchLocation;
     }
 
     /**
@@ -71,6 +118,7 @@ public class MasterMind {
      * @return An array of length numPositions of randomly chosen symbols.
      */
     public static char[] generateHiddenCode(Random rand, int numPositions, char[] symbols) {
+
         return null; //TODO replace
     }
 
@@ -223,8 +271,14 @@ public class MasterMind {
      * @param args  unused
      */
     public static void main(String[] args) {
+    Scanner scnr = new Scanner(System.in);
+    String prompt = "Enter input: ";
+       System.out.print(promptInt(scnr, prompt, 0, 10));
 
+       final int NUM_ELEMENTS = 5;
+       char arr[] = new char[NUM_ELEMENTS];
     }
+
 
     /**
      * Determine the next code in sequence given the ordered symbols and
