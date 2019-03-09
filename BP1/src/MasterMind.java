@@ -85,15 +85,12 @@ public class MasterMind {
     public static int indexOf(char[] arr, char ch) {
         int i;
         int matchLocation;
-        if (!arr = null && arr.length() > 0) {
-            for (i = 0; i <= arr.length(); i++) {
+        if (!(arr == null) && arr.length > 0) {
+            for (i = 0; i <= arr.length; i++) {
                 if (arr[i] == ch) {
                     matchLocation = i;
                     break;
-                } else {
-                    continue;
                 }
-            }
         }
         return matchLocation;
     }
@@ -118,8 +115,12 @@ public class MasterMind {
      * @return An array of length numPositions of randomly chosen symbols.
      */
     public static char[] generateHiddenCode(Random rand, int numPositions, char[] symbols) {
-
-        return null; //TODO replace
+        int i;
+        char[] hiddenCode = new char [numPositions];
+        for (i = 0, i < (numPositions - 1), i++) {
+            hiddenCode[i] = rand.nextInt(symbols.length);
+        }
+        return hiddenCode[];
     }
 
     /**
@@ -275,9 +276,21 @@ public class MasterMind {
     String prompt = "Enter input: ";
        System.out.print(promptInt(scnr, prompt, 0, 10));
 
-       final int NUM_ELEMENTS = 5;
-       char arr[] = new char[NUM_ELEMENTS];
+       int numElements = 5;
+       char arrOfChar[] = new char[numElements];
+       char lookingForSymbol = 'c';
+       indexOf(arrOfChar, lookingForSymbol);
+
+    Random randGen = new Random();
+    int numOfPositions = 5;
+    char symbolsArr[] = {'A', 'B', 'C', 'D', 'E', 'F'
+            ]
+    generateHiddenCode(randGen, numOfPositions, symbolsArr)
+
+
+
     }
+
 
 
     /**
