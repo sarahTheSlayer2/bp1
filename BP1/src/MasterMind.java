@@ -56,6 +56,7 @@ public class MasterMind {
      * @return Returns the value read from the user.
      */
     public static int promptInt(Scanner input, String prompt, int min, int max) {
+      System.out.println("Hey there");
         System.out.print(prompt);
         int userNum;
         if (!input.hasNextInt()) {
