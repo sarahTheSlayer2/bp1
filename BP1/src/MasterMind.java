@@ -1,7 +1,7 @@
 /////////////////// ALL ASSIGNMENTS INCLUDE THIS SECTION /////////////////////
 //
 // Title:           BP1 MasterMind
-// Files:          MasterMing.java, TestMasterMind.java, Config.java
+// Files:           MasterMing.java, TestMasterMind.java, Config.java
 // Course:          CS 200 Spring 2019
 //
 // Author:          Sarah Quinn
@@ -17,7 +17,7 @@
 // source, then please explicitly indicate NONE.
 //
 // Persons:         none
-// Online Sources:  none
+// Online Sources:  https://crunchify.com/java-simple-way-to-convert-string-to-char-array/
 //
 /////////////////////////////// 80 COLUMNS WIDE ///////////////////////////////
 
@@ -84,13 +84,14 @@ public class MasterMind {
      */
     public static int indexOf(char[] arr, char ch) {
         int i;
-        int matchLocation;
+        int matchLocation = -1;
         if (!(arr == null) && arr.length > 0) {
-            for (i = 0; i <= arr.length; i++) {
+            for (i = 0; i < arr.length; i++) {
                 if (arr[i] == ch) {
                     matchLocation = i;
                     break;
                 }
+            }
         }
         return matchLocation;
     }
@@ -117,8 +118,8 @@ public class MasterMind {
     public static char[] generateHiddenCode(Random rand, int numPositions, char[] symbols) {
         int i;
         char[] hiddenCode = new char [numPositions];
-        for (i = 0, i < (numPositions - 1), i++) {
-            hiddenCode[i] = rand.nextInt(symbols.length);
+        for (i = 0; i < numPositions; i++) {
+            hiddenCode[i] = symbols[rand.nextInt(symbols.length)];
         }
         return hiddenCode[];
     }
@@ -135,8 +136,15 @@ public class MasterMind {
      * @return true if the code is the correct length and has only valid symbols otherwise
      * returns false.
      */
-    public static boolean isValidCode( int numPositions, char [] symbols, char [] code) {
-        return false; //TODO replace
+    public static boolean isValidCode(int numPositions, char [] symbols, char [] code) {
+        boolean validity = true;
+        int i;
+        for (i = 0; i < numPositions; i++) {
+           if ((indexOf(symbols[],code[i])) < 0) {
+               validity = false;
+            }
+        }
+        return validity;
     }
 
     /**
@@ -155,8 +163,23 @@ public class MasterMind {
      * @return Returns null or a valid code.
      */
     public static char[] promptForGuess(Scanner input, String prompt, int numPositions, char[] symbols) {
-        return null; //TODO replace
-    }
+        do {
+        System.out.print(prompt);
+        String enteredString = input.next();
+        char [] userCodeEntered = enteredString.toCharArray();
+        if (enteredString.equals("?")) {
+            return null;
+        }
+        if (isValidCode(numPositions, symbols, userCodeEntered)) {
+            break;
+            }
+        else {
+                System.out.println("Invalid Code");
+            }
+        } while(!isValidCode(numPositions, symbols, userCodeEntered))
+      return userCodeEntered;
+        }
+
 
     /**
      * Returns the sum of "black hits" and "white hits" between the hiddenCode 
@@ -276,16 +299,13 @@ public class MasterMind {
     String prompt = "Enter input: ";
        System.out.print(promptInt(scnr, prompt, 0, 10));
 
-       int numElements = 5;
-       char arrOfChar[] = new char[numElements];
+       int CODE_POSITIONS;
+       char arrOfChar[] = new char[CODE_POSITIONS];
        char lookingForSymbol = 'c';
        indexOf(arrOfChar, lookingForSymbol);
 
     Random randGen = new Random();
-    int numOfPositions = 5;
-    char symbolsArr[] = {'A', 'B', 'C', 'D', 'E', 'F'
-            ]
-    generateHiddenCode(randGen, numOfPositions, symbolsArr)
+    generateHiddenCode(randGen, CODE_POSITIONS, CODE_SYMBOLS)
 
 
 
