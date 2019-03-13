@@ -57,6 +57,7 @@ public class MasterMind {
      */
     public static int promptInt(Scanner input, String prompt, int min, int max) {
       System.out.println("Hey there");
+        System.out.println("Loser");
         System.out.print(prompt);
         int userNum;
         if (!input.hasNextInt()) {
