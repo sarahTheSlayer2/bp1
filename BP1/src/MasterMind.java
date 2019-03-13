@@ -124,7 +124,7 @@ public class MasterMind {
     for (i = 0; i < numPositions; i++) {
       hiddenCode[i] = symbols[rand.nextInt(symbols.length)];
     }
-    return hiddenCode[];
+    return hiddenCode;
   }
 
   /**
@@ -143,7 +143,7 @@ public class MasterMind {
     boolean validity = true;
     int i;
     for (i = 0; i < numPositions; i++) {
-      if ((indexOf(symbols[],code[i])) <0){
+      if ((indexOf(symbols,code[i])) <0){
         validity = false;
       }
     }
@@ -166,7 +166,7 @@ public class MasterMind {
    * @return Returns null or a valid code.
    */
   public static char[] promptForGuess(Scanner input, String prompt, int numPositions, char[] symbols) {
-    char[] userCodeEntered = new char[0];
+    char[] userCodeEntered;
     do {
       System.out.print(prompt);
       String enteredString = input.next();
