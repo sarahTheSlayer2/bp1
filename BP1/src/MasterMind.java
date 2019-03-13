@@ -26,38 +26,25 @@ import java.util.Random;
 import java.util.Scanner;
 
 /**
- * TODO Write a summary of the role of this class in the
  * MasterMind program.
+ * This class runs the mastermind program.
+ * The test methods and config variables are in other files.
+ * All steps to run the program are encompassed in this class
+ * (initializing game, generating a code to be guessed,
+ * prompting the user for parameters, guesses, hints, etc.)
  *
- * @author TODO add your name here
+ * @SarahQuinn
  */
 public class MasterMind {
 
   /**
-   * Prompts the user for a value by displaying prompt.
-   * Note: This method should not add a new line to the output of prompt.
-   * <p>
-   * After prompting the user, the method will consume an entire
-   * line of input while reading an int. Leading whitespace is ignored.
-   * If the value read is between min and max
-   * (inclusive), that value is returned. Otherwise, output
-   * "Expected value between 0 and 10."
-   * where 0 and 10 are the values in the min and max parameters, respectively.
-   * Invalid input may be non-integer in which case the same error message is
-   * displayed and the user is prompted again.
-   * <p>
-   * Note: This is a general purpose method to prompt for, read and validate an int
-   * within the min and max. This method should be tested for any min and max.
+   * This method gives the user a prompt.
+   * It then corrects the user if a number is not in range (0 to 10).
+   * It will ask again if an improper input is added.
+   * It returns the value once the user enters a valid value.
    *
-   * @param input  The Scanner instance to read from System.in.
-   * @param prompt Output to the user.
-   * @param min    The minimum acceptable int value (inclusive).
-   * @param min    The maximum acceptable int value (inclusive).
-   * @return Returns the value read from the user.
    */
   public static int promptInt(Scanner input, String prompt, int min, int max) {
-    System.out.println("Hey there");
-    System.out.println("Loser");
     System.out.print(prompt);
     int userNum;
     if (!input.hasNextInt()) {
@@ -72,18 +59,13 @@ public class MasterMind {
       userNum = input.nextInt();
     }
     input.nextLine();
-    return userNum; //TODO replace
+    return userNum;
   }
 
   /**
-   * Returns the index within arr of the first occurrence of the specified character.
-   * If arr is null or 0 length then return -1. For all arrays, don't assume a length
-   * but use the array .length attribute.
-   *
-   * @param arr The array to look through.
-   * @param ch  The character to look for.
-   * @return The index within the array of the first occurrence of the specified
-   * character or -1 if the character is not found in the array.
+   * This method evaluates whether of not a particular character is in a passed array.
+   * If the character is present it will return the location, if not it will return -1.
+   * The location returned will be the first instance of that character.
    */
   public static int indexOf(char[] arr, char ch) {
     int i;
@@ -100,23 +82,10 @@ public class MasterMind {
   }
 
   /**
-   * Generates the hidden code to be guessed by the user. The hidden code
-   * returned is an array of characters with length numPositions.
-   * The characters in the array are randomly chosen, in order starting at index 0,
-   * from the symbols array.
-   * rand.nextInt( symbols.length)
-   * is used to determine the index in the symbols array of each character
-   * in the code. For all arrays, don't assume a length but use the array .length attribute.
-   * <p>
-   * Example:
-   * if numPositions is 3 and symbols is the array {'A','B','C'}
-   * the returned array will have a length of 3 and may contain any selection of
-   * the available symbols such as {'B','C','B'} or {'C','A','B'}.
+   *  This method creates a random code based on the array of valid symbols.
+   *  The size of the array is based on the parameter of numPositions passed in.
+   *  The array with the randomized code of that given length is returned.
    *
-   * @param rand         A random number generator.
-   * @param numPositions The number of symbols in the code.
-   * @param symbols      The symbols to choose from.
-   * @return An array of length numPositions of randomly chosen symbols.
    */
   public static char[] generateHiddenCode(Random rand, int numPositions, char[] symbols) {
     int i;
@@ -128,42 +97,27 @@ public class MasterMind {
   }
 
   /**
-   * Checks whether the code is the correct length and only contains valid symbols.
-   * Uses the indexOf method you wrote to check whether each character in the input is in the
-   * symbols array.  If code or symbols are null then false is returned.
-   * For all arrays, don't assume a length but use the array .length attribute.
-   *
-   * @param numPositions The required number of symbols in the code.
-   * @param symbols      The allowed symbols in the code.
-   * @param code         The code that is being checked.
-   * @return true if the code is the correct length and has only valid symbols otherwise
-   * returns false.
+   ** This method evaluates whether the code array passed in is valid.
+   * It checks whether all the symbols in the code array are valid symbols,
+   * i.e. symbols that are in the designated symbols array.
+   * It returns a boolean value that indicated whether the passed code includes
+   * symbols that are all in the symbols array.
    */
   public static boolean isValidCode(int numPositions, char[] symbols, char[] code) {
     boolean validity = true;
     int i;
     for (i = 0; i < numPositions; i++) {
-      if ((indexOf(symbols,code[i])) <0){
+      if ((indexOf(symbols, code[i])) < 0){
         validity = false;
+        break;
       }
     }
     return validity;
   }
 
   /**
-   * Prompts the user for a string value by displaying prompt.
-   * Note: This method should not add a new line to the output of prompt.
-   * <p>
-   * After prompting the user, the method will read an entire line of input and remove
-   * leading and trailing whitespace. If the line equals the single character '?'
-   * then return null. If the line is a valid code (determine with isValidCode) return
-   * the code, otherwise print "Invalid code." and prompt again.
+   *This method asks the user for a guess
    *
-   * @param input        The Scanner instance to read from System.in
-   * @param prompt       The user prompt.
-   * @param numPositions The number of code positions.
-   * @param symbols      The valid symbols.
-   * @return Returns null or a valid code.
    */
   public static char[] promptForGuess(Scanner input, String prompt, int numPositions, char[] symbols) {
     char[] userCodeEntered;
@@ -297,17 +251,17 @@ public class MasterMind {
    * @param args unused
    */
   public static void main(String[] args) {
-    Scanner scnr = new Scanner(System.in);
-    String prompt = "Enter input: ";
-    System.out.print(promptInt(scnr, prompt, 0, 10));
+    //Scanner scnr = new Scanner(System.in);
+    //String prompt = "Enter input: ";
+    //System.out.print(promptInt(scnr, prompt, 0, 10));
 
-    int CODE_POSITIONS;
-    char arrOfChar[] = new char[CODE_POSITIONS];
-    char lookingForSymbol = 'c';
-    indexOf(arrOfChar, lookingForSymbol);
+    //int CODE_POSITIONS;
+   // char arrOfChar[] = new char[CODE_POSITIONS];
+    //char lookingForSymbol = 'c';
+    //indexOf(arrOfChar, lookingForSymbol);
 
-    Random randGen = new Random();
-    generateHiddenCode(randGen, CODE_POSITIONS, CODE_SYMBOLS)
+    //Random randGen = new Random();
+    //generateHiddenCode(randGen, CODE_POSITIONS, CODE_SYMBOLS)
 
 
   }

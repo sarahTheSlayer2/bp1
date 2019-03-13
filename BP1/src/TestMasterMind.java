@@ -1,4 +1,25 @@
-//TODO add file header
+/////////////////// ALL ASSIGNMENTS INCLUDE THIS SECTION /////////////////////
+//
+// Title:           BP1 Test MasterMind
+// Files:           MasterMing.java, TestMasterMind.java, Config.java
+// Course:          CS 200 Spring 2019
+//
+// Author:          Sarah Quinn
+// Email:           squinn4@wisc.edu
+// Lecturer's Name: Jim Williams
+//
+///////////////////////////// CREDIT OUTSIDE HELP /////////////////////////////
+//
+// Students who get help from sources other than their partner must fully
+// acknowledge and credit those sources of help here.  Instructors and TAs do
+// not need to be credited here, but tutors, friends, relatives, room mates
+// strangers, etc do.  If you received no outside help from either type of
+// source, then please explicitly indicate NONE.
+//
+// Persons:         none
+// Online Sources:  none
+//
+/////////////////////////////// 80 COLUMNS WIDE ///////////////////////////////
 
 import java.util.Arrays;
 import java.util.Random;
