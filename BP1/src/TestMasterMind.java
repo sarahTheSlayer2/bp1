@@ -27,12 +27,11 @@ import java.util.Scanner;
 
 
 /**
- * This class contains a few methods for testing methods in the MasterMind
- * class as they are developed. These methods are private since they are only
- * intended for use within this class.
+ * This class runs tests of the Mastermind class. It is designed to ensure the program runs as desired when
+ * expected user inputs are given and when unexpected inputs are given.
  *
  * @author Jim Williams
- * @author TODO add your name here when you add tests and comment the tests
+ * @author Sarah Quinn
  *
  */
 public class TestMasterMind {
@@ -46,17 +45,17 @@ public class TestMasterMind {
     public static void main(String[] args) {
 
         //Milestone 1: Supporting Methods
-//        testPromptInt();
-//        testIndexOf();  
-//        testGenerateHiddenCode();
-//        testIsValidCode(); 
-//        testPromptForGuess(); 
+        testPromptInt();
+        testIndexOf();
+        testGenerateHiddenCode();
+        testIsValidCode();
+        testPromptForGuess();
 
         //Milestone 2: Playing Game
-//        testCountAllHits(); 
+//        testCountAllHits();
 //        testDetermineHits();
-        //test printBoard by comparing to example output 
-        //test main by comparing to example output
+//        test printBoard by comparing to example output
+//        test main by comparing to example output
 
         //Milestone 3: Computer Guess
 //        testNextCode();  
@@ -66,7 +65,8 @@ public class TestMasterMind {
     }
 
     /**
-     * This runs some tests on the promptInt method.
+     * This method test promptInt for single and multiple invalid inputs, boundaries of the range,
+     * and within range.
      */
     private static void testPromptInt() {
         boolean error = false;
@@ -81,12 +81,45 @@ public class TestMasterMind {
             }
         }
 
-        //suggestions for additional test cases
-        //an invalid number before a valid number
-        //the first integer was within min and max
-        //integers that exactly match min and max
-        //leading whitespace before a number
-        //a couple of invalid numbers before a correct number
+        { //check whether properly re-prompts if the first entry is invalid.
+            Scanner in = new Scanner("sar\n7");
+            int expected = 7;
+            int result = MasterMind.promptInt(in, "Enter integer: ", 5, 15);
+            if ( expected != result) {
+                System.out.println("2) testPromptInt expected: " + expected + " result: " + result);
+                error = true;
+            }
+        }
+
+        { //check whether works for inclusive range.
+            Scanner in = new Scanner("5\n");
+            int expected = 5;
+            int result = MasterMind.promptInt(in, "Enter integer: ", 5, 15);
+            if ( expected != result) {
+                System.out.println("3) testPromptInt expected: " + expected + " result: " + result);
+                error = true;
+            }
+        }
+
+        { //check whether properly works with leading whitespace.
+            Scanner in = new Scanner("   7");
+            int expected = 7;
+            int result = MasterMind.promptInt(in, "Enter integer: ", 5, 15);
+            if ( expected != result) {
+                System.out.println("4) testPromptInt expected: " + expected + " result: " + result);
+                error = true;
+            }
+        }
+
+        { //check whether properly re-prompts after multiple invalid entries.
+            Scanner in = new Scanner("20\n2\n5");
+            int expected = 5;
+            int result = MasterMind.promptInt(in, "Enter integer: ", 5, 15);
+            if ( expected != result) {
+                System.out.println("5) testPromptInt expected: " + expected + " result: " + result);
+                error = true;
+            }
+        }
 
         if (error) {
             System.out.println("testPromptInt failed");
@@ -96,7 +129,8 @@ public class TestMasterMind {
     }
 
     /**
-     * This runs some tests on the indexOf method.
+     * This method tests the IndexOf method for the invalid indexes and valid indexes in
+     * the first, middle, and last positions of the array.
      */
     private static void testIndexOf() {
         boolean error = false;
@@ -111,11 +145,45 @@ public class TestMasterMind {
             }
         }
 
-        //suggestions for additional test cases
-        //the character is not in the array
-        //the character is repeated several times in the array
-        //the character is the first element in the array
-        //the character is the last element in the array
+        { //check whether value of -1 is returned for char not in array.
+            char [] list = {'a', 'A', 'b','B'};
+            int expected = -1;
+            int result = MasterMind.indexOf( list, 'f');
+            if ( expected != result) {
+                System.out.println("2) testIndexOf expected: " + expected + " result: " + result);
+                error = true;
+            }
+        }
+
+        { //check whether the first index is returned when the character is present twice.
+            char [] list = {'a', 'b', 'b','B'};
+            int expected = 1;
+            int result = MasterMind.indexOf( list, 'b');
+            if ( expected != result) {
+                System.out.println("1) testIndexOf expected: " + expected + " result: " + result);
+                error = true;
+            }
+        }
+
+        { //check whether the index of the first char is returned.
+            char [] list = {'a', 'A', 'b','B'};
+            int expected = 0;
+            int result = MasterMind.indexOf( list, 'a');
+            if ( expected != result) {
+                System.out.println("3) testIndexOf expected: " + expected + " result: " + result);
+                error = true;
+            }
+        }
+
+        { //check whether the index the last char is returned.
+            char [] list = {'a', 'A', 'b','B'};
+            int expected = 3;
+            int result = MasterMind.indexOf( list, 'B');
+            if ( expected != result) {
+                System.out.println("4) testIndexOf expected: " + expected + " result: " + result);
+                error = true;
+            }
+        }
 
         if (error) {
             System.out.println("testIndexOf failed");
@@ -125,13 +193,12 @@ public class TestMasterMind {
     }
 
     /**
-     * This runs some tests on the generateHiddenCode method.
+     * This method tests the method generateHiddenCode for several different lengths and number of symbols.
      */
     private static void testGenerateHiddenCode() {
         boolean error = false;
 
-        {   //"randomly" chooses 3 symbols from the list
-            //We know which 3 will be chosen since we set the seed
+        {   //Tests that 3 symbols are "randomly" (though here seeded) chosen from a list of 4 symbols.
             Random rand = new Random(123);
             int numPositions = 3;
             char [] symbols = {'A', 'B', 'C', 'D'};
@@ -143,14 +210,29 @@ public class TestMasterMind {
             }
         }
 
-        //suggestions for additional test cases
-        //vary the number of positions
-        //vary the number of symbols
-        //advanced:
-        //  make sure multiple of the same symbol occur periodically
-        //  make sure every symbol is eventually chosen
-        //  run a bunch of times say 1000 and count all the symbols
-        //  chosen and see if the distribution of symbols is fairly uniform.
+        {   //Tests that 2 symbols are "randomly" (though here seeded) chosen from a list of 4 symbols.
+            Random rand = new Random(123);
+            int numPositions = 2;
+            char [] symbols = {'A', 'B', 'C', 'D'};
+            char [] expected = {'C', 'A'};
+            char [] result = MasterMind.generateHiddenCode( rand, numPositions, symbols);
+            if ( !Arrays.equals( expected,  result)) {
+                System.out.println("2) testGenerateHiddenCode expected: " + Arrays.toString(expected) + " result: " + Arrays.toString(result));
+                error = true;
+            }
+        }
+
+        {   //Tests that 3 symbols are "randomly" (though here seeded) chosen from a list of 6 symbols.
+            Random rand = new Random(123);
+            int numPositions = 3;
+            char [] symbols = {'A', 'B', 'C', 'D', 'E', 'F'};
+            char [] expected = {'C', 'C', 'C'};
+            char [] result = MasterMind.generateHiddenCode( rand, numPositions, symbols);
+            if ( !Arrays.equals( expected,  result)) {
+                System.out.println("3) testGenerateHiddenCode expected: " + Arrays.toString(expected) + " result: " + Arrays.toString(result));
+                error = true;
+            }
+        }
 
         if (error) {
             System.out.println("testGenerateHiddenCode failed");
@@ -160,7 +242,8 @@ public class TestMasterMind {
     }
 
     /**
-     * This runs some tests on the isValidCode method.
+     * This method tests the method isValidCode for correct and incorrect number of inputs as well as
+     * valid and invalid inputs.
      */
     private static void testIsValidCode() {
         boolean error = false;
@@ -176,10 +259,37 @@ public class TestMasterMind {
             }
         }
 
-        //suggestions for additional test cases
-        //different length, acceptable and not
-        //different symbols, some acceptable some not
-        //input with leading and trailing whitespace
+        { //tests response of not enough inputs
+            char[] input = {'1','2'};
+            char[] symbols = {'0','1','2','3','4'};
+            boolean expected = false;
+            boolean result = MasterMind.isValidCode(3, symbols, input);
+            if ( result != expected) {
+                System.out.println("1) testIsValidCode expected: " + expected + " result: " + result);
+                error = true;
+            }
+        }
+
+        { //tests response of too many inputs
+            char[] input = {'1','2','3','4'};
+            char[] symbols = {'0','1','2','3','4'};
+            boolean expected = false;
+            boolean result = MasterMind.isValidCode(3, symbols, input);
+            if ( result != expected) {
+                System.out.println("1) testIsValidCode expected: " + expected + " result: " + result);
+                error = true;
+            }
+        }
+        { //tests response of invalid symbol
+            char[] input = {'1','2','3','5'};
+            char[] symbols = {'0','1','2','3','4'};
+            boolean expected = false;
+            boolean result = MasterMind.isValidCode(3, symbols, input);
+            if ( result != expected) {
+                System.out.println("1) testIsValidCode expected: " + expected + " result: " + result);
+                error = true;
+            }
+        }
 
         if (error) {
             System.out.println("testIsValidCode failed");
@@ -189,7 +299,9 @@ public class TestMasterMind {
     }
 
     /**
-     * This runs some tests on the promptForGuess method.
+     * This method tests the promptForGuess method to make sure that invalid inputs are re-prompted correctly,
+     * invalid characters are re-prompted, and inputs with white spaces are read properly.
+     * Also that the ? option yields the correct response.
      */
     private static void testPromptForGuess() {
         boolean error = false;
@@ -205,13 +317,48 @@ public class TestMasterMind {
             }
         }
 
-        //suggestions for additional test cases
-        //wrong length of input
-        //a wrong character in the input
-        //different length of input
-        //different symbols
-        //leading and trailing whitespace in the input
-        //? as input
+        {  //To check if successfully ignore first two invalid inputs and save third input if valid.
+            Scanner in = new Scanner("1234\n2423\n123");
+            char[] expected = {'1','2','3'};
+            char[] symbols = {'0','1','2','3','4'};
+            char[] result = MasterMind.promptForGuess(in, "Enter guess:", 3, symbols);
+            if ( !Arrays.equals( expected, result)) {
+                System.out.println("1) testPromptForGuess expected: " + Arrays.toString(expected) + " result: " + Arrays.toString(result));
+                error = true;
+            }
+        }
+
+        {  //to check if properly re-prompts after invalid character
+            Scanner in = new Scanner("12a4\n124");
+            char[] expected = {'1','2','4'};
+            char[] symbols = {'0','1','2','3','4'};
+            char[] result = MasterMind.promptForGuess(in, "Enter guess:", 3, symbols);
+            if ( !Arrays.equals( expected, result)) {
+                System.out.println("1) testPromptForGuess expected: " + Arrays.toString(expected) + " result: " + Arrays.toString(result));
+                error = true;
+            }
+        }
+
+        {  //check whether input with leading, middle, and ending whitespace is read properly
+            Scanner in = new Scanner(" 1 2 3 ");
+            char[] expected = {'1','2','3'};
+            char[] symbols = {'0','1','2','3','4'};
+            char[] result = MasterMind.promptForGuess(in, "Enter guess:", 3, symbols);
+            if ( !Arrays.equals( expected, result)) {
+                System.out.println("1) testPromptForGuess expected: " + Arrays.toString(expected) + " result: " + Arrays.toString(result));
+                error = true;
+            }
+        }
+
+        {  //checks if help character is read correctly
+            Scanner in = new Scanner("?");
+            String expected = "null";
+            char[] symbols = {'0','1','2','3','4'};
+            if (MasterMind.promptForGuess(in, "Enter guess:", 3, symbols) != null) {
+                System.out.println("1) testPromptForGuess expected: " + expected);
+                error = true;
+            }
+        }
 
         if (error) {
             System.out.println("testPromptForGuess failed");

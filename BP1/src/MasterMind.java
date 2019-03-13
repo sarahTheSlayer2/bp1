@@ -33,7 +33,7 @@ import java.util.Scanner;
  * (initializing game, generating a code to be guessed,
  * prompting the user for parameters, guesses, hints, etc.)
  *
- * @SarahQuinn
+ * @author Sarah Quinn
  */
 public class MasterMind {
 
@@ -45,20 +45,24 @@ public class MasterMind {
    *
    */
   public static int promptInt(Scanner input, String prompt, int min, int max) {
-    System.out.print(prompt);
-    int userNum;
-    if (!input.hasNextInt()) {
-      input.next();
-      System.out.println("Expected value between 0 and 10.");
+    int userNum = 0;
+    do {
       System.out.print(prompt);
-    }
-    userNum = input.nextInt();
-    if (userNum < min || userNum > max) {
-      System.out.println("Expected value between 0 and 10.");
-      System.out.print(prompt);
-      userNum = input.nextInt();
-    }
-    input.nextLine();
+      if (!input.hasNextInt()) {                              // checks that user value is numerical
+        input.next();
+        System.out.println("Expected value between 0 and 10.");
+      }
+      else {
+        userNum = input.nextInt();
+      }
+       if (userNum < min || userNum > max) {                     //checks if user value is within range
+          System.out.println("Expected value between 0 and 10.");
+        }
+       else {
+          break;
+        }
+    }while (true);
+    //input.nextLine();       //takes away new line character after user input number
     return userNum;
   }
 
@@ -70,10 +74,10 @@ public class MasterMind {
   public static int indexOf(char[] arr, char ch) {
     int i;
     int matchLocation = -1;
-    if (!(arr == null) && arr.length > 0) {
-      for (i = 0; i < arr.length; i++) {
+    if (!(arr == null) && arr.length > 0) {       //ensures that the array is not empty
+      for (i = 0; i < arr.length; i++) {          //checks for relevant character in each index of array
         if (arr[i] == ch) {
-          matchLocation = i;
+          matchLocation = i;                      //ends after first location of relevant character is found
           break;
         }
       }
@@ -91,7 +95,7 @@ public class MasterMind {
     int i;
     char[] hiddenCode = new char[numPositions];
     for (i = 0; i < numPositions; i++) {
-      hiddenCode[i] = symbols[rand.nextInt(symbols.length)];
+      hiddenCode[i] = symbols[rand.nextInt(symbols.length)];  //assigns random char in symbols array to each position
     }
     return hiddenCode;
   }
@@ -106,33 +110,42 @@ public class MasterMind {
   public static boolean isValidCode(int numPositions, char[] symbols, char[] code) {
     boolean validity = true;
     int i;
-    for (i = 0; i < numPositions; i++) {
-      if ((indexOf(symbols, code[i])) < 0){
-        validity = false;
-        break;
+    if (numPositions != code.length) {
+      validity = false;
+    }
+    else {
+      for (i = 0; i < numPositions; i++) {
+        if ((indexOf(symbols, code[i])) < 0) {         //checks indexOf method to check if valid character was used
+          validity = false;
+          break;
+        }
       }
     }
     return validity;
   }
 
   /**
-   *This method asks the user for a guess
+   * This method asks the user for a guess. It then verifies that the code is the valid by calling the the
+   * previous isCodeValid method. It will tell the user the guess is invalid and re-prompt the user until
+   * a valid input is entered.
    *
    */
   public static char[] promptForGuess(Scanner input, String prompt, int numPositions, char[] symbols) {
     char[] userCodeEntered;
     do {
       System.out.print(prompt);
-      String enteredString = input.next();
-      userCodeEntered = enteredString.toCharArray();
+      String enteredString = input.nextLine();
+      enteredString = enteredString.trim();
+      enteredString = enteredString.replaceAll(" ", "");
+      userCodeEntered = enteredString.toCharArray(); // converts the user string to a char array that can run through isValidCode
       if (enteredString.equals("?")) {
         return null;
       }
-      if (isValidCode(numPositions, symbols, userCodeEntered))
+      if (isValidCode(numPositions, symbols, userCodeEntered)) //ends the program is the entered code is valid
         break;
       else
         System.out.println("Invalid Entry");
-    } while (true);
+    } while (true);                                           //makes the method repeat until broken by valid code
     return userCodeEntered;
   }
 
